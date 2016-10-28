@@ -13,7 +13,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import org.w3c.dom.Text;
 
 /**
  * 위치 관리자를 이용해 내 위치를 확인하는 방법에 대해 알 수 있습니다.
@@ -28,6 +31,11 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sample_activity21);
 
+         final DBManger dbManger = new DBManger(getApplicationContext(),"MyGPS.db",null,1);
+
+        //테이블에 있는 모든 데이터 출력
+        final TextView result = (TextView) findViewById(R.id.result);
+
         // 버튼 이벤트 처리
         Button button01 = (Button) findViewById(R.id.btn_start);
         button01.setOnClickListener(new View.OnClickListener() {
@@ -36,6 +44,14 @@ public class MainActivity extends AppCompatActivity {
                 // 위치 정보 확인을 위해 정의한 메소드 호출
                 startLocationService();
 
+            }
+        });
+
+        Button select = (Button)findViewById(R.id.getDataButton);
+        select.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                result.setText(dbManger.getResult());
             }
         });
 
@@ -92,7 +108,7 @@ public class MainActivity extends AppCompatActivity {
 
         // 위치 정보를 받을 리스너 생성
         GPSListener gpsListener = new GPSListener();
-        long minTime = 600000;
+        long minTime = 1000;
         float minDistance = 0;
 
         try {
@@ -133,14 +149,27 @@ public class MainActivity extends AppCompatActivity {
         /**
          * 위치 정보가 확인될 때 자동 호출되는 메소드
          */
+        Double latitude;
+        Double longitude;
+
+        public GPSListener(){
+            this.latitude=0.0;
+            this.longitude=0.0;
+        }
+
         public void onLocationChanged(Location location) {
-            Double latitude = location.getLatitude();
-            Double longitude = location.getLongitude();
+            this.latitude=location.getLatitude();
+            this.longitude=location.getLongitude();
 
             String msg = "Latitude : "+ latitude + "\nLongitude:"+ longitude;
             Log.i("GPSListener", msg);
 
+
             Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
+        }
+
+        public void LocationSave(){
+
         }
 
         public void onProviderDisabled(String provider) {

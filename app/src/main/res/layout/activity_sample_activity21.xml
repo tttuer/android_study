@@ -3,28 +3,48 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="안드로이드 GPS 정보 가져오기"
-        android:id="@+id/title"/>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/Latitude"
-        android:text="Latitude:"/>
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="번호 "/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Latitude "/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Longitude"/>
+    </LinearLayout>
 
     <TextView
-        android:layout_width="wrap_content"
+        android:id="@+id/result"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/Longitude"
-        android:text="Longitude:"/>
+        android:layout_marginTop="8dp">
 
     <Button
         android:id="@+id/btn_start"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="GPS 알아오기"
+        android:text="현재 GPS"
         android:layout_alignParentBottom="true"/>
+
+    <Button
+        android:id="@+id/getDataButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="조회"
+        android:textSize="18dp"/>
+    </LinearLayout>
 
 </LinearLayout>
